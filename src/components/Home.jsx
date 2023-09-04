@@ -1,80 +1,106 @@
-import React from "react";
-import {
-  Grid,
-  GridItem,
-  Text,
-  AspectRatio,
-  Flex,
-  Avatar,
-  Box,
-  Card,
-  SimpleGrid,
-} from "@chakra-ui/react";
+import React, { useState, useEffect } from "react";
+import { Text, Avatar, Card, Input, Button } from "@chakra-ui/react";
+import { useLocation } from "react-router-dom";
 
-const Home = () => {
+const Home = (props) => {
+  const location = useLocation();
+  const data = location.state.data;
+
+  const [doctors, setDoctors] = useState([]);
+  const [patients, setPatients] = useState(null);
+
+  useEffect(() => {
+    if (data.role === 2) {
+      fetch(`http://localhost:8080/v1/doctor/getDoctorByUserId/${data.userId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setDoctors(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      console.log("No es medico");
+    }
+  }, [data]);
+
+  const handleSearch = async () => {
+    try {
+      const documentNumber = document.getElementById("documentInput").value; // Get the input value
+      const response = await fetch(
+        `http://localhost:8080/v1/patient/getPatientByDocument/${documentNumber}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setPatients(data);
+      } else {
+        console.log("Error fetching patient data:");
+        setPatients(null);
+      }
+    } catch (err) {
+      console.log("Error fetching patient data:", err);
+      setPatients(null);
+    }
+  };
+
+  console.log(doctors);
+  console.log(patients);
+
   return (
-    // Passing `columns={[2, null, 3]}` and `columns={{sm: 2, md: 3}}`
-    // will have the same effect.
-    <div>
-      <Flex justify={"flex-start"}>
-        <div style={{ marginLeft: "100px", marginTop: "100px" }}>
-          <Text fontSize="6xl" color="black" as="b">
-            Personal Medico
-          </Text>
-        </div>
-      </Flex>
-      <Flex>
-        <div style={{ marginLeft: "150px" }}>
-          <Card background={"#eeeaf4"} width={"900px"} height={"150px"}>
-            <Grid
-              h="200px"
-              templateRows="repeat(2, 1fr)"
-              templateColumns="repeat(5, 1fr)"
-              gap={1}
-            >
-              <GridItem
-                rowSpan={1}
-                colSpan={3}
-                textAlign={"left"}
-                padding={"10px"}
-              >
-                {" "}
-                <Text as="b">Medico Clinico:</Text> Sanchez, Juan{" "}
-              </GridItem>
-              <GridItem rowSpan={1} colSpan={1}></GridItem>
-              <GridItem rowSpan={2} colSpan={1}>
-                <div style={{ marginLeft: "50px", marginTop: "50px" }}>
-                  <Avatar
-                    name="Sanchez, Juan"
-                    src="https://bit.ly/santiago-suarez"
-                    size={"xl"}
-                  />
-                </div>
-              </GridItem>
-              <GridItem
-                rowSpan={2}
-                colSpan={3}
-                textAlign={"left"}
-                padding={"10px"}
-              >
-                {" "}
-                <Text as="b">M.P. :</Text>41143{" "}
-              </GridItem>
-            </Grid>
-
-            {/* <Flex>Medico Clinico: Sanchez, Juan</Flex>
-            <Flex>M.P. : 41143</Flex>
-            <Flex justify={"flex-end"}>
+    <>
+      <div style={{ padding: "20px", textAlign: "center" }}>
+        <Text fontSize="4xl" color="black" as="b">
+          Personal Médico
+        </Text>
+      </div>
+      <div style={{ padding: "20px" }}>
+        <Card bg={"#eeeaf4"} width={"100%"} maxWidth={"900px"} margin="0 auto">
+          <div
+            style={{ display: "flex", alignItems: "center", padding: "20px" }}
+          >
+            <div style={{ marginRight: "20px" }}>
               <Avatar
-                name="Sanchez, Juan"
+                name={doctors.name + " " + doctors.surname}
                 src="https://bit.ly/santiago-suarez"
-                justify={"flex-end"}
+                size={"xl"}
               />
-            </Flex> */}
-          </Card>
-        </div>
-      </Flex>
-    </div>
+            </div>
+            <div>
+              <Text>
+                <b>Médico Clínico:</b> {doctors.name}, {doctors.surname}
+              </Text>
+              <Text>
+                <b>M.P.:</b> {doctors.mp}
+              </Text>
+            </div>
+          </div>
+        </Card>
+      </div>
+      <div style={{ padding: "20px" }}>
+        <Card bg={"#eeeaf4"} width={"100%"} maxWidth={"400px"} margin="0 auto">
+          <div style={{ padding: "20px" }}>
+            <Text>
+              <b>Búsqueda de paciente</b>
+            </Text>
+            <Input
+              id="documentInput"
+              placeholder="Documento"
+              type="number"
+              width={"100%"}
+              marginTop={"4"}
+            />
+            <Button
+              colorScheme="purple"
+              width={"100%"}
+              marginTop={"7"}
+              onClick={handleSearch}
+            >
+              Buscar
+            </Button>
+          </div>
+        </Card>
+      </div>
+    </>
   );
 };
 
