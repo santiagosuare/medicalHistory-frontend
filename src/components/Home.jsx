@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Text, Avatar, Card, Input, Button } from "@chakra-ui/react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Home = (props) => {
   const location = useLocation();
   const data = location.state.data;
 
   const [doctors, setDoctors] = useState([]);
-  const [patients, setPatients] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (data.role === 2) {
@@ -32,19 +32,14 @@ const Home = (props) => {
       );
       if (response.ok) {
         const data = await response.json();
-        setPatients(data);
+        navigate("/MedicalConsultation", { state: { data, doctors } });
       } else {
         console.log("Error fetching patient data:");
-        setPatients(null);
       }
     } catch (err) {
       console.log("Error fetching patient data:", err);
-      setPatients(null);
     }
   };
-
-  console.log(doctors);
-  console.log(patients);
 
   return (
     <>
@@ -59,11 +54,7 @@ const Home = (props) => {
             style={{ display: "flex", alignItems: "center", padding: "20px" }}
           >
             <div style={{ marginRight: "20px" }}>
-              <Avatar
-                name={doctors.name + " " + doctors.surname}
-                src="https://bit.ly/santiago-suarez"
-                size={"xl"}
-              />
+              <Avatar name={doctors.name + " " + doctors.surname} size={"xl"} />
             </div>
             <div>
               <Text>
