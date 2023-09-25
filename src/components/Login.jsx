@@ -71,16 +71,20 @@ function Login() {
       }}
     >
       <div style={{ padding: "20px", maxWidth: "900px", margin: "0 auto" }}>
+        <Text color={"black"} fontSize={"lg"}>
+          <b>
+            Sistema unico de historiales clinicos <br /> para la Provincia de
+            Cordoba.
+          </b>
+        </Text>
+        <br />
+        <br />
         <Text color={"black"}>
           <b>Iniciar Sesion</b>
         </Text>
-        <Text color={"gray"} fontSize={"lg"}>
-          Sistema unico de historiales clinicos <br /> para la Provincia de
-          Cordoba.
-        </Text>
         <Input
           id="documentInput"
-          placeholder="Documento"
+          placeholder="Ingresar Documento"
           type="number"
           variant="filled"
           width={"100%"}
@@ -94,7 +98,7 @@ function Login() {
             color={"black"}
             variant="filled"
             type={show ? "text" : "password"}
-            placeholder="Enter password"
+            placeholder="Ingesar contraseña"
           />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="sm" onClick={handleClick}>
