@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import MedicalConsultation from "./components/MedicalConsultation";
 import MedicalHistory from "./components/MedicalHistory";
+import PatientCreationPage from "./components/PatientCreationPage";
 
 function App() {
   return (
@@ -18,6 +19,10 @@ function App() {
               Component={MedicalConsultation}
             />
             <Route path="/MedicalHistory" Component={MedicalHistory} />
+            <Route
+              path="/PatientCreationPage"
+              Component={PatientCreationPage}
+            />
           </Routes>
         </Router>
       </div>
