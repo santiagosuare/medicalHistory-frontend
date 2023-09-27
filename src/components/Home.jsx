@@ -41,6 +41,10 @@ const Home = (props) => {
     }
   };
 
+  const handleNewPatient = () => {
+    navigate("/PatientCreationPage", { state: { doctors } });
+  };
+
   return (
     <>
       <div style={{ padding: "20px", textAlign: "center" }}>
@@ -91,6 +95,15 @@ const Home = (props) => {
           </div>
         </Card>
       </div>
+      <Button
+        bg={"#ce94f5"}
+        width={{ base: "50%", md: "auto" }}
+        marginTop={4}
+        marginLeft={{ base: 0, md: "auto" }}
+        onClick={handleNewPatient}
+      >
+        Registrar Nuevo Paciente
+      </Button>
     </>
   );
 };

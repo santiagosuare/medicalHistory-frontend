@@ -119,7 +119,7 @@ function Login() {
           <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent>
-              <ModalHeader>Alert</ModalHeader>
+              <ModalHeader></ModalHeader>
               <ModalCloseButton />
               <ModalBody>
                 <Alert status="warning">
