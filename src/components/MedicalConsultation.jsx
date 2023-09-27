@@ -66,6 +66,10 @@ const MedicalConsultation = () => {
     navigate("/MedicalHistory", { state: { data } });
   };
 
+  const handleCus = async () => {
+    navigate("/CUSView", { state: { data } });
+  };
+
   const handleGoBack = () => {
     window.history.back();
   };
@@ -138,7 +142,7 @@ const MedicalConsultation = () => {
               </Text>
             </div>
             <div style={{ flex: "1", marginTop: "7px" }}>
-              <Button bg={"#ce94f5"} width={"100%"}>
+              <Button bg={"#ce94f5"} width={"100%"} mt={2} onClick={handleCus}>
                 Descargar C.U.S
               </Button>
               <Button

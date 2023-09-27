@@ -13,7 +13,7 @@ import {
   Alert,
   AlertIcon,
 } from "@chakra-ui/react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const MedicalHistory = () => {
   const location = useLocation();
@@ -21,6 +21,7 @@ const MedicalHistory = () => {
   const [history, setHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showNoHistoryAlert, setShowNoHistoryAlert] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);
@@ -64,6 +65,10 @@ const MedicalHistory = () => {
     window.history.back();
   };
 
+  const handleCus = async () => {
+    navigate("/CUSView", { state: { data } });
+  };
+
   return (
     <div style={{ padding: "20px", maxWidth: "100%" }}>
       <Card bg={"#eeeaf4"} mt={4}>
@@ -88,7 +93,7 @@ const MedicalHistory = () => {
               </Text>
             </div>
             <div style={{ flex: "1", marginTop: "7px" }}>
-              <Button bg={"#ce94f5"} width={"100%"}>
+              <Button bg={"#ce94f5"} width={"100%"} onClick={handleCus}>
                 Descargar C.U.S
               </Button>
             </div>

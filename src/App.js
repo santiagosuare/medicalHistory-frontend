@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import MedicalConsultation from "./components/MedicalConsultation";
 import MedicalHistory from "./components/MedicalHistory";
 import PatientCreationPage from "./components/PatientCreationPage";
+import CUSView from "./components/CUSView";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
               path="/PatientCreationPage"
               Component={PatientCreationPage}
             />
+            <Route path="/CUSView" Component={CUSView} />
           </Routes>
         </Router>
       </div>
