@@ -126,7 +126,7 @@ const PatientCreationPage = () => {
     console.log(JSON.stringify(patientResponse));
     try {
       const response = await fetch(
-        `http://localhost:8080/v1/patient/createPatient`,
+        `${process.env.REACT_APP_API_BASE_URL}/v1/patient/createPatient`,
         {
           method: "POST",
           headers: {

@@ -22,7 +22,9 @@ const CUSView = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(`http://localhost:8080/v1/patient/getPatientById/${data.id}`)
+    fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/v1/patient/getPatientById/${data.id}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setIsLoading(false);
