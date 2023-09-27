@@ -90,13 +90,16 @@ const MedicalConsultation = () => {
 
       console.log(createMedicalHistoryData());
 
-      fetch("http://localhost:8080/v1/medicalHistory/createMedicalHistory", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(createMedicalHistoryData()),
-      })
+      fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/v1/medicalHistory/createMedicalHistory`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(createMedicalHistoryData()),
+        }
+      )
         .then((res) => res.json())
         .catch((err) => console.log(err));
 

@@ -27,7 +27,7 @@ const MedicalHistory = () => {
     setIsLoading(true);
     if (data.role === 1) {
       fetch(
-        `http://localhost:8080/v1/medicalHistory/getMedicalHistory/${data.id}`
+        `${process.env.REACT_APP_API_BASE_URL}/v1/medicalHistory/getMedicalHistory/${data.id}`
       )
         .then((res) => res.json())
         .then((data) => {

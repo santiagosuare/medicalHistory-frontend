@@ -40,7 +40,7 @@ function Login() {
       }
 
       const response = await fetch(
-        `http://localhost:8080/v1/login/loginUser/${documentNumber}/${passwordNumber}`
+        `${process.env.REACT_APP_API_BASE_URL}/v1/login/loginUser/${documentNumber}/${passwordNumber}`
       );
       if (response.ok) {
         const data = await response.json();

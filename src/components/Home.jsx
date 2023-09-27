@@ -11,7 +11,9 @@ const Home = (props) => {
 
   useEffect(() => {
     if (data.role === 2) {
-      fetch(`http://localhost:8080/v1/doctor/getDoctorByUserId/${data.userId}`)
+      fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/v1/doctor/getDoctorByUserId/${data.userId}`
+      )
         .then((res) => res.json())
         .then((data) => {
           setDoctors(data);
@@ -28,7 +30,7 @@ const Home = (props) => {
     try {
       const documentNumber = document.getElementById("documentInput").value; // Get the input value
       const response = await fetch(
-        `http://localhost:8080/v1/patient/getPatientByDocument/${documentNumber}`
+        `${process.env.REACT_APP_API_BASE_URL}/v1/patient/getPatientByDocument/${documentNumber}`
       );
       if (response.ok) {
         const data = await response.json();
